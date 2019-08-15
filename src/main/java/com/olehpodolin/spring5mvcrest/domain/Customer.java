@@ -14,7 +14,8 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
     private String lastName;
-    private String customer_url = "/customers/" + id;
+    private String customer_url;
 }

@@ -23,12 +23,22 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerDTO> getAllCustomers() {
         return customerRepository.findAll()
                 .stream()
-                .map(customerMapper::customerToCustomerDTO)
+                .map(customer -> {
+                    CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
+                    customerDTO.setCustomer_url("/api/v1/customer/" + customer.getId());
+                    return customerDTO;
+                })
                 .collect(Collectors.toList());
     }
 
     @Override
     public CustomerDTO getCustomerById(Long id) {
-        return customerMapper.customerToCustomerDTO(customerRepository.findById(id).get());
+        return customerRepository.findById(id)
+                .map(customer -> {
+                    CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
+                    customerDTO.setCustomer_url("/api/v1/customer/" + customer.getId());
+                    return customerDTO;
+                })
+                .orElseThrow(RuntimeException::new); //todo implement better exception handling
     }
 }
