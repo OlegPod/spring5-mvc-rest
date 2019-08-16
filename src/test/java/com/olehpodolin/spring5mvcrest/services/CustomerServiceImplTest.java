@@ -14,18 +14,19 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 
-public class CustomerServiceTest {
+public class CustomerServiceImplTest {
 
     public static final String FIRSTNAME = "Brad";
     public static final String LASTNAME = "Brick";
     public static final long ID = 1L;
     public static final String URL= "/customers/" + ID;
 
-    CustomerService customerService;
+    CustomerServiceImpl customerService;
 
     @Mock
     CustomerRepository customerRepository;
@@ -34,7 +35,9 @@ public class CustomerServiceTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        customerService = new CustomerServiceImpl(CustomerMapper.INSTANCE, customerRepository);
+        customerService = new CustomerServiceImpl();
+        customerService.setCustomerMapper(CustomerMapper.INSTANCE);
+        customerService.setCustomerRepository(customerRepository);
     }
 
     @Test
@@ -72,4 +75,26 @@ public class CustomerServiceTest {
         assertEquals(LASTNAME, customerDTO.getLastName());
     }
 
+    @Test
+    public void createNewCustomer() throws Exception {
+
+        //given
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstName("Konde");
+        customerDTO.setLastName("Mack");
+
+        Customer savedCustomer = new Customer();
+        savedCustomer.setFirstName(customerDTO.getFirstName());
+        savedCustomer.setLastName(customerDTO.getLastName());
+        savedCustomer.setId(1l);
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
+
+        //when
+        CustomerDTO savedDTO = customerService.createNewCustomer(customerDTO);
+
+        //then
+        assertEquals(customerDTO.getFirstName(), savedDTO.getFirstName());
+        assertEquals("/api/v1/customers/1", savedDTO.getCustomer_url());
+    }
 }
