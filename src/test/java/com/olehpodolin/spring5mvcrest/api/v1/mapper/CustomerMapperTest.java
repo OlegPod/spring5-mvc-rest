@@ -4,7 +4,7 @@ import com.olehpodolin.spring5mvcrest.api.v1.model.CustomerDTO;
 import com.olehpodolin.spring5mvcrest.domain.Customer;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class CustomerMapperTest {
 
@@ -20,18 +20,14 @@ public class CustomerMapperTest {
 
         //given
         Customer customer = new Customer();
-        customer.setId(ID);
-        customer.setFirstName(FIRSTNAME);
-        customer.setLastName(LASTNAME);
-        customer.setCustomer_url(URL);
+        customer.setFirstname(FIRSTNAME);
+        customer.setLastname(LASTNAME);
 
         //when
         CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
 
         //then
-        assertEquals(Long.valueOf(ID), customerDTO.getId());
-        assertEquals(FIRSTNAME, customerDTO.getFirstName());
-        assertEquals(LASTNAME, customerDTO.getLastName());
-        assertEquals(URL, customerDTO.getCustomer_url());
+        assertEquals(FIRSTNAME, customerDTO.getFirstname());
+        assertEquals(LASTNAME, customerDTO.getLastname());
     }
 }
