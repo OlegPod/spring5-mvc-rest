@@ -84,7 +84,7 @@ public class CustomerControllerTest extends AbstactRestControllerTest {
         mockMvc.perform(get("/api/v1/customers/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.firstName", equalTo("Jonathan")));
+                .andExpect(jsonPath("$.firstname", equalTo("Jonathan")));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class CustomerControllerTest extends AbstactRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.firstName", equalTo("Fred")))
+                .andExpect(jsonPath("$.firstname", equalTo("Fred")))
                 .andExpect(jsonPath("$.customer_url", equalTo("/api/v1/customers/1")));
     }
 
@@ -130,8 +130,8 @@ public class CustomerControllerTest extends AbstactRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(customer)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.firstName", equalTo("Fred")))
-                .andExpect(jsonPath("$.lastName", equalTo("Flintstone")))
+                .andExpect(jsonPath("$.firstname", equalTo("Fred")))
+                .andExpect(jsonPath("$.lastname", equalTo("Flintstone")))
                 .andExpect(jsonPath("$.customer_url", equalTo("/api/v1/customers/1")));
     }
 
