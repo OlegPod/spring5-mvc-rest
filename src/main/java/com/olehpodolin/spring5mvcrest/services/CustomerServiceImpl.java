@@ -2,6 +2,7 @@ package com.olehpodolin.spring5mvcrest.services;
 
 import com.olehpodolin.spring5mvcrest.api.v1.mapper.CustomerMapper;
 import com.olehpodolin.spring5mvcrest.api.v1.model.CustomerDTO;
+import com.olehpodolin.spring5mvcrest.controllers.v1.CustomerController;
 import com.olehpodolin.spring5mvcrest.domain.Customer;
 import com.olehpodolin.spring5mvcrest.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .stream()
                 .map(customer -> {
                     CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
-                    customerDTO.setCustomer_url("/api/v1/customer/" + customer.getId());
+                    customerDTO.setCustomer_url(getCustomerUrl(customer.getId()));
                     return customerDTO;
                 })
                 .collect(Collectors.toList());
@@ -40,7 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .map(customerMapper::customerToCustomerDTO)
                 .map(customerDTO -> {
                     //set API URL
-                    customerDTO.setCustomer_url("/api/v1/customer/" + id);
+                    customerDTO.setCustomer_url(getCustomerUrl(id));
                     return customerDTO;
                 })
                 .orElseThrow(RuntimeException::new); //todo implement better exception handling
@@ -57,7 +58,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         CustomerDTO returnDto = customerMapper.customerToCustomerDTO(savedCustomer);
 
-        returnDto.setCustomer_url("/api/v1/customer/" + savedCustomer.getId());
+        returnDto.setCustomer_url(getCustomerUrl(savedCustomer.getId()));
 
         return returnDto;
     }
@@ -83,10 +84,14 @@ public class CustomerServiceImpl implements CustomerService {
 
             CustomerDTO returnDto = customerMapper.customerToCustomerDTO(customerRepository.save(customer));
 
-            returnDto.setCustomer_url("/api/v1/customer/" + id);
+            returnDto.setCustomer_url(getCustomerUrl(id));
 
             return returnDto;
         }).orElseThrow(RuntimeException::new); //todo implement better exception handling;
+    }
+
+    private String getCustomerUrl(Long id) {
+        return CustomerController.BASE_URL + "/" + id;
     }
 
     @Override
