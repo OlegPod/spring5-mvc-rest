@@ -2,6 +2,7 @@ package com.olehpodolin.spring5mvcrest.controllers.v1;
 
 import com.olehpodolin.spring5mvcrest.api.v1.model.CustomerDTO;
 import com.olehpodolin.spring5mvcrest.services.CustomerService;
+import com.olehpodolin.spring5mvcrest.services.ResourceNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -167,8 +168,14 @@ public class CustomerControllerTest extends AbstactRestControllerTest {
                         .andExpect(status().isOk());
 
         verify(customerService).deleteCustomerById(anyLong());
-
-
     }
 
+    public void testNotFoundException() throws Exception {
+
+        when(customerService.getCustomerById(anyLong())).thenThrow(ResourceNotFoundException.class);
+
+        mockMvc.perform(get(CustomerController.BASE_URL + "/222")
+                                        .contentType(MediaType.APPLICATION_JSON))
+                                        .andExpect(status().isNotFound());
+    }
 }
