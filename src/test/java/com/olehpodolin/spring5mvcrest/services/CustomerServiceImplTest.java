@@ -68,7 +68,6 @@ public class CustomerServiceImplTest {
         CustomerDTO customerDTO = customerService.getCustomerById(ID);
 
         //then
-      //  assertEquals(Long.valueOf(ID), customerDTO.getId());
         assertEquals(FIRSTNAME, customerDTO.getFirstname());
         assertEquals(LASTNAME, customerDTO.getLastname());
     }
@@ -128,6 +127,5 @@ public class CustomerServiceImplTest {
         customerService.deleteCustomerById(id);
 
         verify(customerRepository, times(1)).deleteById(anyLong());
-
     }
 }
