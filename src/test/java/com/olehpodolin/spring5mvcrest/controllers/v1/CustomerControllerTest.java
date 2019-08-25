@@ -51,12 +51,10 @@ public class CustomerControllerTest extends AbstactRestControllerTest {
 
         //given
         CustomerDTO customer1 = new CustomerDTO();
-       // customer1.setId(1L);
         customer1.setFirstname("Jordan");
         customer1.setLastname("Sup");
 
         CustomerDTO customer2 = new CustomerDTO();
-      //  customer2.setId(2L);
         customer2.setFirstname("Joe");
         customer2.setLastname("Buck");
 

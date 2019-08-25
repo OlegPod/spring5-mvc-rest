@@ -106,7 +106,7 @@ public class VendorServiceImplTest {
 
         //then
         assertEquals(vendorDTO.getName(), savedDTO.getName());
-        assertEquals("/vendors/1", savedDTO.getVendor_url());
+        assertEquals("/api/v1/vendors/1", savedDTO.getVendor_url());
     }
 
     @Test
