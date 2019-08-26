@@ -61,7 +61,7 @@ public class VendorControllerTest {
         VendorDTO vendorDTO3 = new VendorDTO();
         vendorDTO3.setName("Test3");
 
-        List<VendorDTO> testVendors = Arrays.asList(vendorDTO1, vendorDTO2);
+        List<VendorDTO> testVendors = Arrays.asList(vendorDTO1, vendorDTO2, vendorDTO3);
 
         when(vendorService.getAllVendors()).thenReturn(testVendors);
 
@@ -120,7 +120,7 @@ public class VendorControllerTest {
         returnDTO.setName(vendorDTO.getName());
         returnDTO.setVendor_url(VendorController.BASE_URL + "/1");
 
-        when(vendorService.saveVendorByDTO(anyLong(), vendorDTO)).thenReturn(returnDTO);
+        when(vendorService.saveVendorByDTO(anyLong(), any(VendorDTO.class))).thenReturn(returnDTO);
 
         //when
         mockMvc.perform(put(VendorController.BASE_URL + "/1")
@@ -156,7 +156,7 @@ public class VendorControllerTest {
     @Test
     public void testDeleteVendor() throws Exception {
 
-        mockMvc.perform(delete(CustomerController.BASE_URL + "/1")
+        mockMvc.perform(delete(VendorController.BASE_URL + "/1")
                                         .contentType(MediaType.APPLICATION_JSON))
                                         .andExpect(status().isOk());
 

@@ -2,8 +2,10 @@ package com.olehpodolin.spring5mvcrest.bootstrap;
 
 import com.olehpodolin.spring5mvcrest.domain.Category;
 import com.olehpodolin.spring5mvcrest.domain.Customer;
+import com.olehpodolin.spring5mvcrest.domain.Vendor;
 import com.olehpodolin.spring5mvcrest.repositories.CategoryRepository;
 import com.olehpodolin.spring5mvcrest.repositories.CustomerRepository;
+import com.olehpodolin.spring5mvcrest.repositories.VendorRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +14,13 @@ public class Bootstrap implements CommandLineRunner {
 
     private CategoryRepository categoryRepository;
     private CustomerRepository customerRepository;
+    private VendorRepository vendorRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository) {
+    public Bootstrap(CategoryRepository categoryRepository, CustomerRepository customerRepository,
+                     VendorRepository vendorRepository) {
         this.categoryRepository = categoryRepository;
         this.customerRepository = customerRepository;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
@@ -23,9 +28,11 @@ public class Bootstrap implements CommandLineRunner {
 
         loadCategories();
         loadCustomers();
+        loadVendors();
 
         System.out.println("Categories Loaded : " + categoryRepository.count());
         System.out.println("Customers Loaded : " + customerRepository.count());
+        System.out.println("Vendors Loaded : " + vendorRepository.count());
     }
 
     private void loadCategories() {
@@ -77,5 +84,20 @@ public class Bootstrap implements CommandLineRunner {
         customerRepository.save(customer3);
         customerRepository.save(customer4);
         customerRepository.save(customer5);
+    }
+
+    private void loadVendors() {
+        Vendor vendor1 = new Vendor();
+        vendor1.setName("Company 1");
+
+        Vendor vendor2 = new Vendor();
+        vendor2.setName("Company 2");
+
+        Vendor vendor3 = new Vendor();
+        vendor3.setName("Company 3");
+
+        vendorRepository.save(vendor1);
+        vendorRepository.save(vendor2);
+        vendorRepository.save(vendor3);
     }
 }

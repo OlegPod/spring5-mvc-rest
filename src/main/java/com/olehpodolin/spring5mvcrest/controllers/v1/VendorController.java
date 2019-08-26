@@ -30,5 +30,27 @@ public class VendorController {
         return vendorService.getVendorById(id);
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public VendorDTO createNewVendor(@RequestBody VendorDTO vendorDTO) {
+        return vendorService.createNewVendor(vendorDTO);
+    }
 
+    @PutMapping({"/{id}"})
+    @ResponseStatus(HttpStatus.OK)
+    public VendorDTO updateCustomer(@PathVariable Long id, @RequestBody VendorDTO vendorDTO) {
+        return vendorService.saveVendorByDTO(id, vendorDTO);
+    }
+
+    @PatchMapping({"/{id}"})
+    @ResponseStatus(HttpStatus.OK)
+    public VendorDTO patchCustomer(@PathVariable Long id, @RequestBody VendorDTO vendorDTO) {
+        return vendorService.patchVendor(id, vendorDTO);
+    }
+
+    @DeleteMapping({"/{id}"})
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteCustomer(@PathVariable Long id) {
+        vendorService.deleteVendorById(id);
+    }
 }
