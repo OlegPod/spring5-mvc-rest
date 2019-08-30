@@ -22,37 +22,42 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @ApiOperation(value = "Get List of All Customers", notes = "Are they real?")
+    @ApiOperation(value = "Get List of all Customers", notes = "Displaying all customers from Database")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CustomerListDTO getAllCustomers() {
         return new CustomerListDTO(customerService.getAllCustomers());
     }
 
+    @ApiOperation(value = "Get Customer By Id", notes = "Displaying Customer by Id value")
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public CustomerDTO getCustomerById(@PathVariable Long id) {
         return customerService.getCustomerById(id);
     }
 
+    @ApiOperation(value = "Post/Create New Customer", notes = "New Customer is Persisted")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CustomerDTO createNewCustomer(@RequestBody CustomerDTO customerDTO) {
         return customerService.createNewCustomer(customerDTO);
     }
 
+    @ApiOperation(value = "Put/Update Operation", notes = "Put Customer")
     @PutMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public CustomerDTO updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
         return customerService.saveCustomerByDTO(id, customerDTO);
     }
 
+    @ApiOperation(value = "Patch Operation", notes = "Make patch to Customer")
     @PatchMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public CustomerDTO patchCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
         return customerService.patchCustomer(id, customerDTO);
     }
 
+    @ApiOperation(value = "Delete Operation", notes = "Delete Customer")
     @DeleteMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
     public void deleteCustomer(@PathVariable Long id) {
