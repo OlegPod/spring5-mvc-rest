@@ -4,6 +4,7 @@ import com.olehpodolin.spring5mvcrest.api.v1.model.CategoryDTO;
 import com.olehpodolin.spring5mvcrest.api.v1.model.CategoryListDTO;
 import com.olehpodolin.spring5mvcrest.services.CategoryService;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(CategoryController.BASE_URL)

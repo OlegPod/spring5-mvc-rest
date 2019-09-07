@@ -1,7 +1,7 @@
 package com.olehpodolin.spring5mvcrest.services;
 
+import com.olehpodolin.model.CustomerDTO;
 import com.olehpodolin.spring5mvcrest.api.v1.mapper.CustomerMapper;
-import com.olehpodolin.spring5mvcrest.api.v1.model.CustomerDTO;
 import com.olehpodolin.spring5mvcrest.bootstrap.Bootstrap;
 import com.olehpodolin.spring5mvcrest.domain.Customer;
 import com.olehpodolin.spring5mvcrest.repositories.CategoryRepository;

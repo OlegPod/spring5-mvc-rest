@@ -1,11 +1,12 @@
 package com.olehpodolin.spring5mvcrest.controllers.v1;
 
-import com.olehpodolin.spring5mvcrest.api.v1.model.CustomerDTO;
-import com.olehpodolin.spring5mvcrest.api.v1.model.CustomerListDTO;
+import com.olehpodolin.model.CustomerDTO;
+import com.olehpodolin.model.CustomerListDTO;
 import com.olehpodolin.spring5mvcrest.services.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @Api(description = "Customer controller. Choose operation to try")
 @RestController
@@ -25,7 +26,9 @@ public class CustomerController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CustomerListDTO getAllCustomers() {
-        return new CustomerListDTO(customerService.getAllCustomers());
+        CustomerListDTO customerListDTO = new CustomerListDTO();
+        customerListDTO.getCustomers().addAll(customerService.getAllCustomers());
+        return customerListDTO;
     }
 
     @ApiOperation(value = "Get Customer By Id", notes = "Displaying Customer by Id value")

@@ -1,6 +1,6 @@
 package com.olehpodolin.spring5mvcrest.controllers.v1;
 
-import com.olehpodolin.spring5mvcrest.api.v1.model.CustomerDTO;
+import com.olehpodolin.model.CustomerDTO;
 import com.olehpodolin.spring5mvcrest.services.CustomerService;
 import com.olehpodolin.spring5mvcrest.services.ResourceNotFoundException;
 import org.junit.Before;
@@ -77,7 +77,7 @@ public class CustomerControllerTest extends AbstactRestControllerTest {
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setFirstname(FIRSTNAME);
         customerDTO.setLastname(LASTNAME);
-        customerDTO.setCustomer_url(CustomerController.BASE_URL + "/1");
+        customerDTO.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
         when(customerService.getCustomerById(anyLong())).thenReturn(customerDTO);
 
@@ -99,9 +99,9 @@ public class CustomerControllerTest extends AbstactRestControllerTest {
         CustomerDTO returnDTO = new CustomerDTO();
         returnDTO.setFirstname(customer.getFirstname());
         returnDTO.setLastname(customer.getLastname());
-        returnDTO.setCustomer_url(CustomerController.BASE_URL + "/1");
+        returnDTO.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
-        when(customerService.createNewCustomer(customer)).thenReturn(returnDTO);
+        when(customerService.createNewCustomer(any())).thenReturn(returnDTO);
 
         //when/then
         mockMvc.perform(post(CustomerController.BASE_URL)
@@ -110,7 +110,7 @@ public class CustomerControllerTest extends AbstactRestControllerTest {
                 .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.firstname", equalTo("Fred")))
-                .andExpect(jsonPath("$.customer_url", equalTo(CustomerController.BASE_URL + "/1")));
+                .andExpect(jsonPath("$.customerUrl", equalTo(CustomerController.BASE_URL + "/1")));
     }
 
     @Test
@@ -124,7 +124,7 @@ public class CustomerControllerTest extends AbstactRestControllerTest {
         CustomerDTO returnDTO = new CustomerDTO();
         returnDTO.setFirstname(customer.getFirstname());
         returnDTO.setLastname(customer.getLastname());
-        returnDTO.setCustomer_url(CustomerController.BASE_URL + "/1");
+        returnDTO.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
         when(customerService.saveCustomerByDTO(anyLong(), any(CustomerDTO.class))).thenReturn(returnDTO);
 
@@ -136,7 +136,7 @@ public class CustomerControllerTest extends AbstactRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.firstname", equalTo("Fred")))
                 .andExpect(jsonPath("$.lastname", equalTo("Flintstone")))
-                .andExpect(jsonPath("$.customer_url", equalTo(CustomerController.BASE_URL + "/1")));
+                .andExpect(jsonPath("$.customerUrl", equalTo(CustomerController.BASE_URL + "/1")));
     }
 
     @Test
@@ -149,7 +149,7 @@ public class CustomerControllerTest extends AbstactRestControllerTest {
         CustomerDTO returnDTO = new CustomerDTO();
         returnDTO.setFirstname(customer.getFirstname());
         returnDTO.setLastname("Test");
-        returnDTO.setCustomer_url(CustomerController.BASE_URL + "/1");
+        returnDTO.setCustomerUrl(CustomerController.BASE_URL + "/1");
 
         when(customerService.patchCustomer(anyLong(), any(CustomerDTO.class))).thenReturn(returnDTO);
 
@@ -160,7 +160,7 @@ public class CustomerControllerTest extends AbstactRestControllerTest {
                                                     .andExpect(status().isOk())
                                                     .andExpect(jsonPath("$.firstname", equalTo("John")))
                                                     .andExpect(jsonPath("$.lastname", equalTo("Test")))
-                                                    .andExpect(jsonPath("$.customer_url", equalTo(CustomerController.BASE_URL + "/1")));
+                                                    .andExpect(jsonPath("$.customerUrl", equalTo(CustomerController.BASE_URL + "/1")));
     }
 
     @Test

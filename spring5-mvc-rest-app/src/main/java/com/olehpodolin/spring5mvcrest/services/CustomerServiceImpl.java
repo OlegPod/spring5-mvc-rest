@@ -1,7 +1,7 @@
 package com.olehpodolin.spring5mvcrest.services;
 
+import com.olehpodolin.model.CustomerDTO;
 import com.olehpodolin.spring5mvcrest.api.v1.mapper.CustomerMapper;
-import com.olehpodolin.spring5mvcrest.api.v1.model.CustomerDTO;
 import com.olehpodolin.spring5mvcrest.controllers.v1.CustomerController;
 import com.olehpodolin.spring5mvcrest.domain.Customer;
 import com.olehpodolin.spring5mvcrest.repositories.CustomerRepository;
@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .stream()
                 .map(customer -> {
                     CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
-                    customerDTO.setCustomer_url(getCustomerUrl(customer.getId()));
+                    customerDTO.setCustomerUrl(getCustomerUrl(customer.getId()));
                     return customerDTO;
                 })
                 .collect(Collectors.toList());
@@ -41,7 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .map(customerMapper::customerToCustomerDTO)
                 .map(customerDTO -> {
                     //set API URL
-                    customerDTO.setCustomer_url(getCustomerUrl(id));
+                    customerDTO.setCustomerUrl(getCustomerUrl(id));
                     return customerDTO;
                 })
                 .orElseThrow(ResourceNotFoundException::new);
@@ -58,7 +58,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         CustomerDTO returnDto = customerMapper.customerToCustomerDTO(savedCustomer);
 
-        returnDto.setCustomer_url(getCustomerUrl(savedCustomer.getId()));
+        returnDto.setCustomerUrl(getCustomerUrl(savedCustomer.getId()));
 
         return returnDto;
     }
@@ -85,7 +85,7 @@ public class CustomerServiceImpl implements CustomerService {
 
             CustomerDTO returnDto = customerMapper.customerToCustomerDTO(customerRepository.save(customer));
 
-            returnDto.setCustomer_url(getCustomerUrl(id));
+            returnDto.setCustomerUrl(getCustomerUrl(id));
 
             return returnDto;
         }).orElseThrow(ResourceNotFoundException::new);

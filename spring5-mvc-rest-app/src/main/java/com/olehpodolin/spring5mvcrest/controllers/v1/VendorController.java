@@ -6,6 +6,7 @@ import com.olehpodolin.spring5mvcrest.services.VendorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @Api(description = "Vendor controller. Choose operation to try")
 @RestController
