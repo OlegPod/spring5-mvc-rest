@@ -6,7 +6,6 @@ import com.olehpodolin.spring5mvcrest.services.CustomerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 
 @Api(description = "Customer controller. Choose operation to try")
 @RestController
